@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Blog{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'blog:post_list' %}">My Blog</a></h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'blog:post_list' %}">Home</a></li>
+        </ul>
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <div class="sidebar">
+        {% block sidebar %}
+        <h2>About Me</h2>
+        <p>This is a simple blog built with Django.</p>
+        {% endblock %}
+    </div>
+    <footer>
+        <p>&copy; 2026 My Blog</p>
+    </footer>
+</body>
+</html>

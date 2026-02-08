@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}My Blog - Home{% endblock %}
+
+{% block content %}
+    <h2>Recent Posts</h2>
+    {% for post in posts %}
+        <article class="post">
+            <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+            <p class="meta">Published on {{ post.publish }}</p>
+            <p>{{ post.body|truncatewords:30|linebreaks }}</p>
+        </article>
+    {% empty %}
+        <p>No posts available.</p>
+    {% endfor %}
+    {% include 'pagination.html' with page=page_obj %}
+{% endblock %}
