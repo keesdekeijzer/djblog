@@ -4,14 +4,29 @@
 
 {% block content %}
     <h2>Recent Posts</h2>
+    {% if tag %}
+        <p>Posts tagged with "{{ tag.name }}":</p>
+    {% endif %}
     {% for post in posts %}
         <article class="post">
             <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+            <p class="tags">
+                Tags:
+                {% for tag in post.tags.all %}
+                    <a href="{% url 'blog:post_list_by_tag' tag.slug %}">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                    No tags.
+                {% endfor %}
+            </p>
             <p class="meta">Published on {{ post.publish }}</p>
             <p>{{ post.body|truncatewords:30|linebreaks }}</p>
         </article>
     {% empty %}
         <p>No posts available.</p>
     {% endfor %}
-    {% include 'pagination.html' with page=page_obj %}
+    {% if page_obj %}
+        {% include 'pagination.html' with page=page_obj %}
+    {% else %}
+        {% include 'pagination.html' with page=posts %}
+    {% endif %}
 {% endblock %}

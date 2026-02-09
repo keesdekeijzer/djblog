@@ -10,4 +10,39 @@
             {{ post.body|linebreaks }}
         </div>
     </article>
+    <section class="similar-posts">
+        <h3>Similar Posts</h3>
+        {% if similar_posts %}
+            <ul>
+                {% for similar_post in similar_posts %}
+                    <li><a href="{{ similar_post.get_absolute_url }}">{{ similar_post.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No similar posts found.</p>
+        {% endif %}
+    </section>
+    <section class="comments">
+        <h3>Comments</h3>
+        {% with comments.count as total_comments %}
+            <p>{{ total_comments }} comment{{ total_comments|pluralize }}</p>
+        {% endwith %}
+        {% for comment in comments %}
+            <div class="comment">
+                <p><strong>{{ comment.name }}</strong> on {{ comment.created }}</p>
+                <p>{{ comment.body|linebreaks }}</p>
+            </div>
+        {% empty %}
+            <p>No comments yet.</p>
+        {% endfor %}
+        {% if new_comment %}
+            <p>Your comment has been added successfully.</p>
+        {% else %}
+            <h3>Leave a Comment</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <p><input type="submit" value="Submit Comment"></p>
+            </form>
+        {% endif %}
 {% endblock %}

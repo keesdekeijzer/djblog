@@ -8,7 +8,7 @@ Een basis voor een Django blog website.
 python manage.py runserver
 ```
 
-Te zien op http://120.0.0.1:8000/
+Te zien op http://127.0.0.1:8000/
 
 ## Make migrations
 
