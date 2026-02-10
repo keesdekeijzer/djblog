@@ -1,4 +1,5 @@
 {% extends 'blog/base.html' %}
+{% load blog_tags %}
 
 {% block title %}{{ post.title }} - My Blog{% endblock %}
 
@@ -7,7 +8,7 @@
         <h2>{{ post.title }}</h2>
         <p class="meta">Published on {{ post.publish }}</p>
         <div class="post-body">
-            {{ post.body|linebreaks }}
+            {{ post.body|markdown }}
         </div>
     </article>
     <section class="similar-posts">

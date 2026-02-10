@@ -1,4 +1,5 @@
 {% extends 'blog/base.html' %}
+{% load blog_tags %}
 
 {% block title %}My Blog - Home{% endblock %}
 
@@ -19,7 +20,7 @@
                 {% endfor %}
             </p>
             <p class="meta">Published on {{ post.publish }}</p>
-            <p>{{ post.body|truncatewords:30|linebreaks }}</p>
+            <p>{{ post.body|markdown|truncatewords_html:30 }}</p>
         </article>
     {% empty %}
         <p>No posts available.</p>

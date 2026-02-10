@@ -1,3 +1,4 @@
+{% load blog_tags %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -24,6 +25,19 @@
         {% block sidebar %}
         <h2>About Me</h2>
         <p>This is a simple blog built with Django.</p>
+        <h2>Total Posts</h2>
+        <p>{% total_posts %} posts published.</p>
+        <h3>Latest Posts</h3>
+        {% show_latest_posts count=5 %}
+        <h3>Most Commented Posts</h3>
+        {% get_most_commented_posts as most_commented_posts %}
+        <ul>
+            {% for post in most_commented_posts %}
+                <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a> ({{ post.total_comments }} comments)</li>
+            {% empty %}
+                <li>No posts available.</li>
+            {% endfor %}
+        </ul>
         {% endblock %}
     </div>
     <footer>
